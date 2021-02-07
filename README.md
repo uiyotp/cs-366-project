@@ -1,13 +1,16 @@
-# cs-366-project
-Title of the project
+# Video Game Sales Database
 
-Group members:<please list the names and emails of all members>
+## Group members
+> + Solomon Paprocki - paprockisj04@uww.edu
+> + Melissa Olhausen - olhausenmm13@uww.edu
+> + Nathaniel Morris - morrisnl24@uww.edu
 
-Motivation and project description
-Write 1-2 paragraphs describing specifically what you want to do for your final project. You should at least cover (i) the application domain (ii) the type of applications (web-based, standalone, or app), (iii) why it is important to have a database in this domain application; and (iv) description of the functionality of the application.
+## Motivation and project description
+> This application will be web-based and will be about video games.  It is important to have a database for this so that people can learn more about what kind of video games have had the most success and critical acclaim.  This app will be able to show the end user lists of the top games for each genre based on sales or ratings, it will also be able to show the top games irregardless of genre.  I will have an easy way to interact with the information so that the end user can display and see what they are interested in from the video game database.
 
-Datasets
-Write 1-2 paragraphs describing your dataset, the reasons why you choose this dataset, attributes of the chosen dataset. This would help readers to understand your dataset to some extent.
+## Datasets
+> [Video Games Sales Dataset](https://data.world/sumitrock/video-games-sales/workspace/file?filename=Video_Games.csv)  
+> This is our dataset.  We chose this dataset because we like video games and we wanted to do a video game related dataset.  It has over 16,000 rows of video games, a separate row for each video game/platform pair.  The attributes include name, platform, year of release, genre, publisher, sales (from na, eu, jp, other, and global), critic count and score, user reviewer count and score, developer, and rating.
 
 Project schedule
 Please create a table that indicates the tentative project schedule and what you want to accomplish from now to the end of the project.
