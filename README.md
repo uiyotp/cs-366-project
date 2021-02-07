@@ -12,27 +12,25 @@
 > [Video Games Sales Dataset](https://data.world/sumitrock/video-games-sales/workspace/file?filename=Video_Games.csv)  
 > This is our dataset.  We chose this dataset because we like video games and we wanted to do a video game related dataset.  It has over 16,000 rows of video games, a separate row for each video game/platform pair.  The attributes include name, platform, year of release, genre, publisher, sales (from na, eu, jp, other, and global), critic count and score, user reviewer count and score, developer, and rating.
 
-## Project schedule
-Please create a table that indicates the tentative project schedule and what you want to accomplish from now to the end of the project.
+## Project Schedule
 
-Example:
-
-Description of expected deliverables
-
-2/7-2/20
-Finish Checkpoint 2
-
-2/20-3/14
-Finish Checkpoint 3
-
-3/14-4/11
-Finish Checkpoint 4
-
-4/11-5/7
-Finish Final Project
+Dates | Deliverables
+--- | ---
+2/7-2/20 | Finish Checkpoint 2
+2/20-3/14 | Finish Checkpoint 3
+3/14-4/11 | Finish Checkpoint 4
+4/11-5/7 | Finish Final Project
 
 ## Assessment plan
-Write 1-2 paragraphs describing the evaluation plan for this project. How do we know if its functionality works? In this section, please think about how many test cases and their expected results.
+> + As a user, I want to be able to see the best video games for each genre.
+> + As a user, I want to be able to see the best overall video games.
+> + As a user, I want to be able to choose the best video game definition metric (By user reviews, critic reviews, or sales).
+> + As a developer, I want to create a database that is secure and cannot be SQL injeceted.
 
 ## Personnel management
-Identify group members and their roles in this project. Include a description of the communication methods among the group members (for example weekly face-to-face meeting, weekly virtual meeting, or emails).
+> + Solomon Paprocki - Team Lead and Web Master
+> + Melissa Olhausen - Lead Java Developer
+> + Nathaniel Morris - Developer
+
+## Communication
+> We will communicate via Canvas and Email, maybe we will add a virtual meeting or two if needed.
