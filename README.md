@@ -43,6 +43,9 @@ Each group will submit an ER diagram design document via Checkpoint 2 under Assi
 
 1. A description of the application and its features. State as clearly as possible what you want to do (bullet points preferred). This can be extracted from your Checkpoint 1 write-up.
 
+![alt text](https://github.com/uiyotp/cs-366-project/raw/master/video-game-sales-ERdiagram.pdf "Logo Title Text 1")
+
+
 2. The ER diagram of your application domain, plus English description.
 
 Please make sure to specify all entity sets (and their attributes), relationship sets (with key constraints/relationship multiplicities, total participation, referential integrity constraints if applicable), primary keys, weak entities (if any). State any other assumptions you had to make for modeling the ER diagram.
