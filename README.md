@@ -39,11 +39,12 @@ Dates | Deliverables
 
 # Checkpoint 2
 
-Each group will submit an ER diagram design document via Checkpoint 2 under Assignments in Canvas that includes the following:
+### Application Description
+> + 
 
 1. A description of the application and its features. State as clearly as possible what you want to do (bullet points preferred). This can be extracted from your Checkpoint 1 write-up.
 
-![alt text](https://github.com/uiyotp/cs-366-project/raw/master/video-game-sales-ERdiagram.pdf "Logo Title Text 1")
+![Our ER Diagram](https://github.com/uiyotp/cs-366-project/raw/master/video-game-sales-ERdiagram.png "Our ER Diagram")
 
 
 2. The ER diagram of your application domain, plus English description.
