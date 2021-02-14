@@ -55,8 +55,8 @@ Dates | Deliverables
 > I assumed that each game has a single publisher or developer, that there aren't more than two companies who worked on the game.  I assumed that all developers and publishers have unique names.  I also assumed that all non-key attributes are not necessarily unique.
 
 ### Functionalities
-> As previously outlined above in the Application Description Section, we will have the following funcationalities:
-> + Have a fully integrated search feature where the user can search for video games by top grossing, top reviewed, developer, publisher, genre, name, platform, and more.  This will involve joins (to display information from all databases in the same section), projection (returning columns that the user asks for), selection (returning which games are part of the search), and aggregations(computing which titles are the top grossing or reviewed).
+> As previously outlined above in the Application Description Section, we will have the following functionalities:
+> + Have a fully integrated search feature where the user can search for video games by top grossing, top reviewed, developer, publisher, genre, name, platform, and more.  This will involve joins (to display information from all databases in the same section), projection (returning columns that the user asks for), selection (returning which games are part of the search), and aggregation (computing which titles are the top grossing or reviewed).
 > + Give the user the ability to add their own review for any game.  They will only be allowed to enter user reviews.  This will be added to the calculation and the overall game score will be adjusted accordingly.  This will involve insertion (if the user adds the first review to a game, we will have to insert a new row into the reviewed game database) and modification (the user review total and user score will have to be modified).
 > + The user will also be allowed to delete any games from the database that do not have any reviews.  This will involve deletion (the row will be deleted from the database).
 
