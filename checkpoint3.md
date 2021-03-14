@@ -21,10 +21,18 @@
 > GameID from Game and GameID from Reviewed Game are both primary keys.
 
 ### Non Trivial FDs and Normal Forms
-> Nathaniel, please fill this out.  Use the ER Diagram from Checkpoint 2 and the above revisions as your guide.  Ask any questions in Discord.
-> Here is the instructions:
-> List all non-trivial functional dependencies that are applicable. Try to ensure that all tables in your schema are in third normal form (3NF). 
-> If a table is not in 3NF, please explain the reason why you make that design decision.
+Game
+GameID -> Name, GameID -> Platforms, GameID -> Year, GameID -> Genre, GameID -> AgeRating, 
+GameID -> UserCount, GameID -> UserScrore, GameID -> CriticCount, GameID -> CriticScore
+
+Sales
+GameID -> EUSales, GameID -> NASales, GameID -> JPSales, GameID -> OtherSales
+
+Publisher
+PublisherID -> Name
+
+Developer
+DeveloperID -> Name
 
 ### Software Platforms/Languages
 > We will be using Java for back end and JavaScript/HTML for the front end
