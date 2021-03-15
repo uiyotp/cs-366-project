@@ -5,7 +5,7 @@
 > + We will remove reviewedGame and instead attach all of reviewedGames' attributes to Game.  This is because it makes the most sense to us.
 > + We are changing the Sales entity to a weak entity that is dependent on Game, with the relationship hasSales.  This just makes the most sense, since everything is dependent on GameID.
 > + We are removing the global sales attribute, since all the other sales attributes would be dependent on this.  We will instead calculate global sales using all of the other sale numbers.
-> > + We are changing rating to ageRating for greater clarity.
+> + We are changing rating to ageRating for greater clarity.
 
 ### Relational Schema
 > + PUBLISHER(PubID, Name)
