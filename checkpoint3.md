@@ -18,21 +18,17 @@
 >   + Sales does not have a primary key due to being a weak entity. It relies on foreign key GameID, from the Game entity. In addition, it is not necessary to include hasSales in the relational schema due to sales being a weak entity.
 
 ### Non Trivial FDs and Normal Forms
-##### Game
-> (Is BCNF)
+##### Game (Is BCNF)
 > + GameID -> Name, GameID -> Platform, GameID -> Year, GameID -> Genre, GameID -> AgeRating, 
-> GameID -> UserCount, GameID -> UserScore, GameID -> CriticCount, GameID -> CriticScore
+> GameID -> UserCount, GameID -> UserScore, GameID -> CriticCount, GameID -> CriticScore, GameID -> pubID, GameID -> devID
 
-##### Sales
-> (Is BCNF)
+##### Sales (Is BCNF)
 > + GameID -> EUSales, GameID -> NASales, GameID -> JPSales, GameID -> OtherSales
 
-##### Publisher
-> (Is BCNF)
+##### Publisher (Is BCNF)
 > + PublisherID -> Name
 
-##### Developer
-> (Is BCNF)
+##### Developer (Is BCNF)
 > + DeveloperID -> Name
 
 ### Software Platforms/Languages
