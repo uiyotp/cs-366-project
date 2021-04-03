@@ -1,0 +1,75 @@
+Lab 2 – Group Lab (100 points)
+Part 1: Practice on subquery -Melissa Olhausen
+Use university data as it is used in Lab 1. Please fill in the SQL and Result columns of the following table for each query. Please submit this duly filled template to the dropbox by midnight of the due date.
+
+Query (20 points)	SQL	Result
+1.	Find the age of the oldest student who is either a History major or enrolled in a course taught by ‘I. Teach’.
+select max(s.age) from student s where s.age in 
+((select s.age from student s where s.major = "History") 
+union ( select s.age from student s, enroll e, class c, faculty f where s.snum=e.snum and e.cname=c.cname and c.fid=f.fid and f.fname="I. Teach"));
++------+
+| age  |
++------+
+|   20 |
++------+
+2.	Find the names of all classes that either meet in room R128 or have five or more students enrolled.
+(select e.cname from enroll e group by e.cname having count(e.snum)>=5) union (select c.cname from class c where c.room='R128');
++--------------------------+
+| cname                    |
++--------------------------+
+| Database Systems         |
+| Operating System Design  |
+| Archaeology of the Incas |
+| Dairy Herd Management    |
+| Data Structures          |
+| Intoduction to Math      |
+| Patent Law               |
++--------------------------+
+3.	Find the names of all students who are enrolled in two classes that meet at the same time.	
+select s.sname from student s, enroll e, class c where s.snum = e.snum and e.cname=c.cname and c.cname in 
+(select cname from class c where meets_at in ( select meets_at from class c group by c.meets_at having count(*)>=2))  
+group by s.sname having count(*)>1;	
++-----------------------+
+| sname                 |
++-----------------------+
+| Luis Hernandez   |
++-----------------------+
+4.	Find the names of faculty members for whom the combined enrollment of the courses that they teach is less than five.	
+select f.fname from faculty f where f.fid in
+( select f.fid from faculty f, class c, enroll e where f.fid=c.fid and c.cname =e.cname group by f.fid having count(c.fid)<5);	
++------------------+
+| fname            |
++------------------+
+| John Williams    |
+| Elizabeth Taylor |
+| Mary Johnson     |
+| William Moore    |
+| Patricia Jones   |
+| Richard Jackson  |
+| Jennifer Thomas  |
++------------------+
+
+Practice on Stored procedure (10 point each)
+1.	(i) Write a stored procedure to return the number of faculty from Faculty table.
+(ii) Write Java code to get call this procedure from Java and display the total number of faculty from Java console.
+
+2.	(i) Write a stored procedure to return information about a student, given a student id.
+(ii) Write Java code to ask users to enter a student id, call this procedure and display the information on Java console.
+
+3.	(i) Write a stored procedure using cursor to print out information on all classes.
+(ii) Write Java code to call this procedure from Java
+(iii) Write a SQL statement to print out all information on all classes
+(iv) Write Java code to get this SQL statement executed.
+Compare the approach 1 which contains the steps (i) and (ii) and approach 2 which contains the step (iii) and (iv). Please give your comments/thought on which situations which approach should be used.
+
+All the stored procedure, screenshots (Java, mysql) should be stored/cut-pasted to a Word document and submit to Lab 2 dropbox by the due date.
+
+Part 2 (50 points): Do research on one of the following DBMS: Oracle, DB2, Microsoft SQL Server. You will be doing research using google, books, articles on one of these three DBMS (choose one). Your deliverable is at least a 2 page report in which you discuss the following points on each DBMS:
+1.	Overview
+2.	DBMS Installation and Setup
+3.	Data type, support for built-in functions
+4.	Storage support
+5.	Indexing
+6.	Security
+
+ 
