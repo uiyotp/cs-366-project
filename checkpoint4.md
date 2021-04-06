@@ -10,7 +10,7 @@ Subquery in FROM clause,
 Self-join,
 Nested subquery in WHERE clause,
 Anything that goes beyond simple group by/having/order/built-in functions
-#### MAKE SURE THAT AT LEAST HALF OF THE QUERIES YOU WRITE ARE LEVEL 2 OR 3
+#### MAKE SURE THAT AT LEAST 2 OF THE QUERIES YOU WRITE ARE LEVEL 2 OR 3
 #### We each write 1/3 of the queries.  I will take care of the interface, since I am in charge of front end.
 #### Take a look at the schema at the bottom to help write queries.
 ##### SQL queries (6 total) - 2 each
@@ -20,17 +20,7 @@ Anything that goes beyond simple group by/having/order/built-in functions
 > + 
 > + 
 > + 
-##### Store Procedures (3 total) - 1 each
-> + 
-> + 
-> + 
-##### Stored Procedures (9 total) - 3 each
-> + 
-> + 
-> + 
-> + 
-> + 
-> + 
+##### Stored Procedures (3 total) - 1 each
 > + 
 > + 
 > + 
