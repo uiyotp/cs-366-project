@@ -100,9 +100,6 @@ delimiter;
 
 ##### 4. Trigger upon inserting a new game (check if publisher exists, check if developer exists, if not add a new ones)
 
-### Interface
-> + I will take of of the interface preview.
-
 ### Relational Schema
 > + publisher(pub_ID, name)
 >   + pub_ID is the primary key.
@@ -112,3 +109,13 @@ delimiter;
 >   + dev_ID is the primary key.
 > + SALES(na_sales, eu_sales, jp_sales, other_sales, game_ID)
 >   + Sales does not have a primary key due to being a weak entity. It relies on foreign key game_ID, from the Game entity. In addition, it is not necessary to include hasSales in the relational schema due to sales being a weak entity.
+
+### Interface
+Dont mind the "All Games List" tab title.  That tab is the Search Games tab.  I figured it would not be a good idea to show 16,000 games to the end user.  (But I didn't want to redo the pictures after I took them :))
+>![Top Games](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/topGames.PNG "Top Games")
+>![Edit Games 1](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/editGames-1.PNG "Edit Games 1")
+>![Edit Games 2](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/editGames-2.PNG "Edit Games 2")
+>![Edit Games 3](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/editGames-3.PNG "Edit Games 3")
+>![Review Games](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/reviewGames.PNG "Review Games")
+>![Search Games](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/searchGames.PNG "Search Games")
+>![Credits](https://github.com/uiyotp/cs-366-project/raw/master/interfacePictures/credits.PNG "Credits")
