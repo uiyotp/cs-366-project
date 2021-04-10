@@ -14,8 +14,11 @@ Anything that goes beyond simple group by/having/order/built-in functions
 #### AT LEAST HALF THE QUERIES MUST BE LEVEL 2 OR 3
 #### We each write 1/3 of the queries.  I will take care of the interface, since I am in charge of front end.
 #### Take a look at the schema at the bottom to help write queries.
+
+-----------------------------------------
 #### SQL queries (6 total) - 2 each (I recommend you guys do the 4 that I described below.  You could also write something else you think of that we will need.)
-##### Select the top 10 rated games (based on critic score, with at least 10 critic reviews)
+
+##### 1. Select the top 10 games (based on *critic score*, with at least 10 critic reviews)
 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
 FROM game AS g  
 INNER JOIN publisher AS p  
@@ -26,32 +29,65 @@ WHERE g.critic_count > 10
 ORDER BY g.critic_score desc  
 LIMIT 10;'  
 
-##### Select the top 10 rated games by user selected genre (based on critic score, with at least 10 critic reviews)
+##### 2. Select the top 10 games (based on *user score*, with at least 10 user reviews)
 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
 FROM game AS g  
 INNER JOIN publisher AS p  
 ON g.pub_ID = p.pub_ID  
 INNER JOIN developer AS d  
 ON g.dev_ID = d.dev_ID  
-WHERE g.critic_count > 10 AND genre = ' + genreChoice + '  
-ORDER BY g.critic_score desc  
+WHERE g.user_count > 10  
+ORDER BY g.user_score desc  
 LIMIT 10;'  
 
-##### Select the top 10 video games based on total sales (will have to add all four types of sales together for each game)
+##### 3. Select the top 10 games based (based on *total sales*, will have to add all four types of sales together for each game)
 
-##### Insert a new game
+##### 4. Insert a new game
 
-##### Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
+##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
 
-##### Insert a critic review (will have to take critic_score times critic_count, then add new score to that total, then add one to critic_count and calculate the new score by dividing the total by the new critic_count, then setting the critic_score to that number)
+##### 6. Insert a critic review (will have to take critic_score times critic_count, then add new score to that total, then add one to critic_count and calculate the new score by dividing the total by the new critic_count, then setting the critic_score to that number)
 
-#### Stored Procedures (3 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
+------------------------------------
+#### Stored Procedures (4 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
 
-##### Insert a new game (increment game_ID, 
+##### 1. Select the top 10 games by user selected genre (based on *sales*, will have to add all four types of sales together for each game)
 
-##### Insert a new developer
+##### 2. Select the top 10 games by user selected genre (based on *user score*, with at least 10 critic reviews)
+delimiter $$  
+drop procedure if exists getTopUserGenre;  
+create procedure getTotalFaculty(IN genreChoice VARCHAR(50))  
+begin  
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating  
+FROM game AS g  
+INNER JOIN publisher AS p  
+ON g.pub_ID = p.pub_ID  
+INNER JOIN developer AS d  
+ON g.dev_ID = d.dev_ID  
+WHERE g.user_count > 10 AND genre = genreChoice  
+ORDER BY g.user_score desc  
+LIMIT 10;  
+end $$  
+delimiter;  
 
-##### Insert a new publisher
+##### 3. Select the top 10 games by user selected genre (based on *critic score*, with at least 10 critic reviews)
+delimiter $$  
+drop procedure if exists getTopCriticGenre;  
+create procedure getTotalFaculty(IN genreChoice VARCHAR(50))  
+begin  
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
+FROM game AS g  
+INNER JOIN publisher AS p  
+ON g.pub_ID = p.pub_ID  
+INNER JOIN developer AS d  
+ON g.dev_ID = d.dev_ID  
+WHERE g.critic_count > 10 AND genre = genreChoice 
+ORDER BY g.critic_score desc  
+LIMIT 10;
+end $$  
+delimiter; 
+
+##### 4. Trigger upon inserting a new game (check if publisher exists, check if developer exists, if not add a new ones)
 
 ### Interface
 > + I will take of of the interface preview.
