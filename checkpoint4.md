@@ -10,30 +10,58 @@ Subquery in FROM clause,
 Self-join,
 Nested subquery in WHERE clause,
 Anything that goes beyond simple group by/having/order/built-in functions
-#### MAKE SURE THAT AT LEAST 2 OF THE QUERIES YOU WRITE ARE LEVEL 2 OR 3
+
+#### AT LEAST HALF THE QUERIES MUST BE LEVEL 2 OR 3
 #### We each write 1/3 of the queries.  I will take care of the interface, since I am in charge of front end.
 #### Take a look at the schema at the bottom to help write queries.
-##### SQL queries (6 total) - 2 each
-> + 
-> + 
-> + 
-> + 
-> + 
-> + 
-##### Stored Procedures (3 total) - 1 each
-> + 
-> + 
-> + 
+#### SQL queries (6 total) - 2 each (I recommend you guys do the 4 that I described below.  You could also write something else you think of that we will need.)
+##### Select the top 10 rated games (based on critic score, with at least 10 critic reviews)
+'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
+FROM game AS g  
+INNER JOIN publisher AS p  
+ON g.pub_ID = p.pub_ID  
+INNER JOIN developer AS d  
+ON g.dev_ID = d.dev_ID  
+WHERE g.critic_count > 10  
+ORDER BY g.critic_score desc  
+LIMIT 10;'  
+
+##### Select the top 10 rated games by user selected genre (based on critic score, with at least 10 critic reviews)
+'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
+FROM game AS g  
+INNER JOIN publisher AS p  
+ON g.pub_ID = p.pub_ID  
+INNER JOIN developer AS d  
+ON g.dev_ID = d.dev_ID  
+WHERE g.critic_count > 10 AND genre = ' + genreChoice + '  
+ORDER BY g.critic_score desc  
+LIMIT 10;'  
+
+##### Select the top 10 video games based on total sales (will have to add all four types of sales together for each game)
+
+##### Insert a new game
+
+##### Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
+
+##### Insert a critic review (will have to take critic_score times critic_count, then add new score to that total, then add one to critic_count and calculate the new score by dividing the total by the new critic_count, then setting the critic_score to that number)
+
+#### Stored Procedures (3 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
+
+##### Insert a new game (increment game_ID, 
+
+##### Insert a new developer
+
+##### Insert a new publisher
 
 ### Interface
 > + I will take of of the interface preview.
 
 ### Relational Schema
-> + PUBLISHER(PubID, Name)
->   + PubID is the primary key.
-> + GAME(GameID, ageRating, game, year, platform, name, PubID, critic score, critic count, user score, user count, DevID)
->   + GameID is the primary key. PubID and DevID are foreign keys. Published and Made relations are not needed due to being a many-one relationship.
-> + DEVELOPER(name, DevID)
->   + DevID is the primary key.
-> + SALES(na sales, eu sales, jp sales, other sales, GameID)
->   + Sales does not have a primary key due to being a weak entity. It relies on foreign key GameID, from the Game entity. In addition, it is not necessary to include hasSales in the relational schema due to sales being a weak entity.
+> + publisher(pub_ID, name)
+>   + pub_ID is the primary key.
+> + game(game_ID, age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID)
+>   + game_ID is the primary key. pub_ID and dev_ID are foreign keys. Published and Made relations are not needed due to being a many-one relationship.
+> + developer(name, dev_ID)
+>   + dev_ID is the primary key.
+> + SALES(na_sales, eu_sales, jp_sales, other_sales, game_ID)
+>   + Sales does not have a primary key due to being a weak entity. It relies on foreign key game_ID, from the Game entity. In addition, it is not necessary to include hasSales in the relational schema due to sales being a weak entity.
