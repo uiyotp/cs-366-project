@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game Sales Database</title>
+</head>
+
+<body>
+    <h1 class="title">Game Sales Database</h1>
+    <div class="tabSection">
+        <a id="TopGamesTab" class="tab noHighlight current" onclick="openPage('TopGames')">
+            <h1 class="tabText">Top Games</h1>
+        </a>
+        <a id="EditGamesTab" class="tab noHighlight" onclick="openPage('EditGames')">
+            <h1 class="tabText">Edit Games</h1>
+        </a>
+        <a id="ReviewTab" class="tab noHighlight" onclick="openPage('Review')">
+            <h1 class="tabText">Add Review</h1>
+        </a>
+        <a id="SearchGamesTab" class="tab noHighlight" onclick="openPage('SearchGames');resetImages();">
+            <h1 class="tabText">All Games List</h1>
+        </a>
+        <a id="CreditsTab" class="tab noHighlight" onclick="openPage('Credits')">
+            <h1 class="tabText">Credits</h1>
+        </a>
+    </div>
+    <div id="TopGames" class="tabContent">
+        <h1 class="pageHeaders">List of Top Games</h1>
+        <form id="topGameFilter" class="centered" action="" method="">
+            <label>Metric:</label>
+            <select id="topMetric" name="topMetric">
+                <option selected value="critic">Top Critic Review Scores</option>
+                <option value="user">Top User Review Scores</option>
+                <option value="sales">Top Grossing</option>
+            </select>
+            <br>
+            <!-- Will dynamically fill -->
+            <label>Genre:</label>
+            <select id="topGenre" name="topGenre">
+                <option selected value="1">Action RPG</option>
+            </select>
+            <br>
+            <button type="submit" >Search</button>
+        </form>
+        <table id="topGames" class="centered">
+            <tr>
+                <th>Name</th>
+                <th>Publisher</th>
+                <th>Developer</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Platform</th>
+                <th>Critic Score</th>
+                <th>User Score</th>
+                <th>Age Rating</th>
+            </tr>
+        </table>
+    </div>
+    <div id="EditGames" class="tabContent">
+        <h1 class="pageHeaders">Edit a Game</h1>
+        <form  id="editGameSearch" class="centered" action="" method="">
+            <label>Name of Game:</label>
+            <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Platform:</label>
+            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <br>
+            <button type="submit">Edit</button>
+        </form>
+        <h3 style="display: none;" class="error centered">Game not found!</h3>
+        <form style="display: none;" id="editGame" class="centered" action="" method="">
+            <label>Name of Game:</label>
+            <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Name of Publisher:</label>
+            <input type="text" id="pubName" name="pubName" placeholder="Bethesda Softworks"></input>
+            <br>
+            <label>Name of Developer:</label>
+            <input type="text" id="devName" name="devName" placeholder="Bethesda Game Studios"></input>
+            <br>
+            <label>Year:</label>
+            <input type="text" id="year" name="year" placeholder="2015"></input>
+            <br>
+            <label>Genre:</label>
+            <input type="text" id="genre" name="genre" placeholder="Action RPG"></input>
+            <br>
+            <label>Platform:</label>
+            <input type="text" id="platform" name="platform" placeholder="Xbox"></input>
+            <br>
+            <label>Age Rating:</label>
+            <input type="text" id="ageRating" name="ageRating" placeholder="M"></input>
+            <br>
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+    <div id="Review" class="tabContent">
+        <h1 class="pageHeaders">Add a Game Review</h1>
+        <form id="reviewGame" class="centered" action="" method="">
+            <label>Name of Game:</label>
+            <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Name of Developer:</label>
+            <input type="text" id="devNameRating" name="devName" placeholder="Bethesda Game Studios"></input>
+            <br>
+            <label>Year:</label>
+            <input type="text" id="yearRating" name="year" placeholder="2015"></input>
+            <br>
+            <label>Platform:</label>
+            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <br>
+            <label>Type of Rating:</label>
+            <select id="ratingType" name="ratingType">
+                <option selected value="critic">Critic</option>
+                <option value="user">User</option>
+            </select>
+            <br>
+            <label>Score (1-100):</label>
+            <input type="text" id="score" name="score" placeholder="85"></input>
+            <br>
+            <button type="submit">Rate</button>
+        </form>
+    </div>
+    <div id="SearchGames" class="tabContent" onclick="changeImage()">
+        <h1 class="pageHeaders">Search For a Game</h1>
+        <form id="searchGame" class="centered" action="" method="">
+            <label>Name of Game:</label>
+            <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Platform:</label>
+            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <br>
+            <button type="submit">Search</button>
+        </form>
+        <table id="searchGames" class="centered">
+            <tr>
+                <th>Name</th>
+                <th>Publisher</th>
+                <th>Developer</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Platform</th>
+                <th>Critic Score</th>
+                <th>User Score</th>
+                <th>Age Rating</th>
+            </tr>
+        </table>
+    </div>
+    <div id="Credits" class="tabContent" style="text-align:center;">
+        <h1 class="pageHeaders">Created by:</h1>
+        <h2>Melissa Olhausen, Nathaniel Morris, Solomon Paprocki</h2>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
