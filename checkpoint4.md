@@ -41,7 +41,7 @@ ORDER BY g.user_score desc
 LIMIT 10;'  
 
 ##### 3. Select the top 10 games based (based on *total sales*, will have to add all four types of sales together for each game)
-select g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating,
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating,
 (SUM(s.na_sales) +SUM(s.eu_sales)+SUM(s.jp_sales) + SUM(s.other_sales) ) AS total_sales 
 FROM game AS g
 INNER JOIN publisher AS p  
@@ -49,11 +49,11 @@ ON g.pub_ID = p.pub_ID
 INNER JOIN developer AS d  
 ON g.dev_ID = d.dev_ID 
 INNER JOIN sales AS s  
-ON g.game_id = s.game_id   
+ON g.game_ID = s.game_ID   
 ORDER BY total_sales desc
 LIMIT 10;
 ##### 4. Insert a new game
-INSERT INTO game((game_ID, age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID) VALUES (045496904159, E10+, 2017, Switch, Breath of the Wild, Adventure, Nintendo, 97, 109, 8.7, 16687, Nintendo) ;
+INSERT INTO game(game_ID, age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID) VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
 
 ##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
 
@@ -63,11 +63,28 @@ INSERT INTO game((game_ID, age_rating, year, platform, name, genre, pub_ID, crit
 #### Stored Procedures (4 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
 
 ##### 1. Select the top 10 games by user selected genre (based on *sales*, will have to add all four types of sales together for each game)
+delimiter $$
+drop procedure if exists getTopSalesGenre;
+create procedure getTopSalesGenre(IN genreChoice VARCHAR(50))
+begin
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating,
+(SUM(s.na_sales) +SUM(s.eu_sales)+SUM(s.jp_sales) + SUM(s.other_sales) ) AS total_sales
+FROM game AS g
+INNER JOIN publisher AS p
+ON g.pub_ID = p.pub_ID
+INNER JOIN developer AS d
+ON g.dev_ID = d.dev_ID
+INNER JOIN sales AS s
+ON g.game_ID = s.game_ID
+WHERE genre=genreChoice
+ORDER BY total_sales desc LIMIT 10;
+end $$ 
+delimiter;
 
 ##### 2. Select the top 10 games by user selected genre (based on *user score*, with at least 10 critic reviews)
 delimiter $$  
 drop procedure if exists getTopUserGenre;  
-create procedure getTotalFaculty(IN genreChoice VARCHAR(50))  
+create procedure getTopUserGenre(IN genreChoice VARCHAR(50))  
 begin  
 SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating  
 FROM game AS g  
@@ -84,7 +101,7 @@ delimiter;
 ##### 3. Select the top 10 games by user selected genre (based on *critic score*, with at least 10 critic reviews)
 delimiter $$  
 drop procedure if exists getTopCriticGenre;  
-create procedure getTotalFaculty(IN genreChoice VARCHAR(50))  
+create procedure getTopCriticGenre(IN genreChoice VARCHAR(50))  
 begin  
 SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
 FROM game AS g  
