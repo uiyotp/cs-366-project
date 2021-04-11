@@ -53,7 +53,8 @@ ON g.game_ID = s.game_ID
 ORDER BY total_sales desc
 LIMIT 10;
 ##### 4. Insert a new game
-INSERT INTO game(game_ID, age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID) VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
+INSERT INTO game(age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID)  
+VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
 
 ##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
 
