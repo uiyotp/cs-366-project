@@ -1,22 +1,8 @@
 # Checkpoint 4
 
 ### SQL queries
-> + Level 1 - standard SQL queries using only one table.
-> + Level 2 - SQL queries on multiple tables that join with each other or subqueries involve more than one table. Use group by, having, order by, built-in functions if applicable.
-> + Level 3 - 
-Queries in level 2 and one of the followings:
-Complicated calculation needed,
-Subquery in FROM clause,
-Self-join,
-Nested subquery in WHERE clause,
-Anything that goes beyond simple group by/having/order/built-in functions
 
-#### AT LEAST HALF THE QUERIES MUST BE LEVEL 2 OR 3
-#### We each write 1/3 of the queries.  I will take care of the interface, since I am in charge of front end.
-#### Take a look at the schema at the bottom to help write queries.
-
------------------------------------------
-#### SQL queries (6 total) - 2 each (I recommend you guys do the 4 that I described below.  You could also write something else you think of that we will need.)
+#### SQL queries (6 total)
 
 ##### 1. Select the top 10 games (based on *critic score*, with at least 10 critic reviews)
 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
@@ -68,7 +54,7 @@ SET game_ID = Breath of the Wild
 WHERE critic_score = (critic_count * critic_score +  (Java input new critic score))/++critic_count; 
 
 ------------------------------------
-#### Stored Procedures (4 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
+#### Stored Procedures (4 total)
 
 ##### 1. Select the top 10 games by user selected genre (based on *sales*, will have to add all four types of sales together for each game)
 delimiter $$
@@ -134,6 +120,8 @@ IF !EXISTS (check from developer names)
 IF !EXISTS (check from publisher names)
   INSERT INTO developer(pub_ID, name)
   VALUE (0034, EA)
+  
+------------
 
 ### Relational Schema
 > + publisher(pub_ID, name)
