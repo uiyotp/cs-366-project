@@ -60,12 +60,12 @@ VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 1
 ##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
 UPDATE game
 SET game_ID = Breath of the Wild
-WHERE user_score = (user_count * user_score +  (Java input new user score))/user_count++; 
+WHERE user_score = (user_count * user_score +  (Java input new user score))/++user_count; 
 
 ##### 6. Insert a critic review (will have to take critic_score times critic_count, then add new score to that total, then add one to critic_count and calculate the new score by dividing the total by the new critic_count, then setting the critic_score to that number)
 UPDATE game
 SET game_ID = Breath of the Wild
-WHERE critic_score = (critic_count * critic_score +  (Java input new critic score))/critic_count++; 
+WHERE critic_score = (critic_count * critic_score +  (Java input new critic score))/++critic_count; 
 
 ------------------------------------
 #### Stored Procedures (4 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
