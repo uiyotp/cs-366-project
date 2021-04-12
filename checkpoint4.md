@@ -41,17 +41,18 @@ ORDER BY g.user_score desc
 LIMIT 10;'  
 
 ##### 3. Select the top 10 games based (based on *total sales*, will have to add all four types of sales together for each game)
-SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating,
-(SUM(s.na_sales) +SUM(s.eu_sales)+SUM(s.jp_sales) + SUM(s.other_sales) ) AS total_sales 
-FROM game AS g
-INNER JOIN publisher AS p  
-ON g.pub_ID = p.pub_ID  
-INNER JOIN developer AS d  
-ON g.dev_ID = d.dev_ID 
-INNER JOIN sales AS s  
-ON g.game_ID = s.game_ID   
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating
+FROM game g, publisher p, developer d, sales s, 
+WHERE g.game_ID in(
+SELECT game_ID 
+FROM game g 
+WHERE game_ID in(
+SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
+FROM game g, sales s
+WHERE s.game_ID=g.game_ID 
 ORDER BY total_sales desc
-LIMIT 10;
+LIMIT 10));
+
 ##### 4. Insert a new game
 INSERT INTO game(age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID)  
 VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
@@ -68,17 +69,17 @@ delimiter $$
 drop procedure if exists getTopSalesGenre;
 create procedure getTopSalesGenre(IN genreChoice VARCHAR(50))
 begin
-SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating,
-(SUM(s.na_sales) +SUM(s.eu_sales)+SUM(s.jp_sales) + SUM(s.other_sales) ) AS total_sales
-FROM game AS g
-INNER JOIN publisher AS p
-ON g.pub_ID = p.pub_ID
-INNER JOIN developer AS d
-ON g.dev_ID = d.dev_ID
-INNER JOIN sales AS s
-ON g.game_ID = s.game_ID
-WHERE genre=genreChoice
-ORDER BY total_sales desc LIMIT 10;
+SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating 
+FROM game g, publisher p, developer d, sales s, 
+WHERE g.game_ID in(
+SELECT game_ID
+FROM game g 
+WHERE game_ID in(
+SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales 
+FROM game g, sales s
+WHERE s.game_ID=g.game_ID 
+ORDER BY total_sales desc 
+LIMIT 10));
 end $$ 
 delimiter;
 
