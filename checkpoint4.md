@@ -58,8 +58,14 @@ INSERT INTO game(age_rating, year, platform, name, genre, pub_ID, critic_score, 
 VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
 
 ##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
+UPDATE game
+SET game_ID = Breath of the Wild
+WHERE user_score = (user_count * user_score +  (Java input new user score))/user_count++; 
 
 ##### 6. Insert a critic review (will have to take critic_score times critic_count, then add new score to that total, then add one to critic_count and calculate the new score by dividing the total by the new critic_count, then setting the critic_score to that number)
+UPDATE game
+SET game_ID = Breath of the Wild
+WHERE critic_score = (critic_count * critic_score +  (Java input new critic score))/critic_count++; 
 
 ------------------------------------
 #### Stored Procedures (4 total) - 1 each (I recommend you guys do the 2 that I described below.  You could also write something else you think of that we will need.)
@@ -118,6 +124,16 @@ end $$
 delimiter; 
 
 ##### 4. Trigger upon inserting a new game (check if publisher exists, check if developer exists, if not add a new ones)
+CREATE TRIGGER [this is optional.]new_game_trigger
+ON game
+FOR Insert
+
+IF !EXISTS (check from developer names)
+  INSERT INTO developer(name, dev_ID)
+  VALUE (ID Studios, 0055)
+IF !EXISTS (check from publisher names)
+  INSERT INTO developer(pub_ID, name)
+  VALUE (0034, EA)
 
 ### Relational Schema
 > + publisher(pub_ID, name)
