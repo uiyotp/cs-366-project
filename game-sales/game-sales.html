@@ -5,13 +5,14 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Game Sales Database</title>
 </head>
 
 <body>
     <h1 class="title">Game Sales Database</h1>
     <div class="tabSection">
-        <a id="TopGamesTab" class="tab noHighlight current" onclick="openPage('TopGames')">
+        <a id="TopGamesTab" class="tab noHighlight current" onclick="openPage('TopGames'); getGenre();">
             <h1 class="tabText">Top Games</h1>
         </a>
         <a id="EditGamesTab" class="tab noHighlight" onclick="openPage('EditGames')">
@@ -20,8 +21,8 @@
         <a id="ReviewTab" class="tab noHighlight" onclick="openPage('Review')">
             <h1 class="tabText">Add Review</h1>
         </a>
-        <a id="SearchGamesTab" class="tab noHighlight" onclick="openPage('SearchGames');resetImages();">
-            <h1 class="tabText">All Games List</h1>
+        <a id="SearchGamesTab" class="tab noHighlight" onclick="openPage('SearchGames');">
+            <h1 class="tabText">Search Games</h1>
         </a>
         <a id="CreditsTab" class="tab noHighlight" onclick="openPage('Credits')">
             <h1 class="tabText">Credits</h1>
@@ -29,7 +30,8 @@
     </div>
     <div id="TopGames" class="tabContent">
         <h1 class="pageHeaders">List of Top Games</h1>
-        <form id="topGameFilter" class="centered" action="" method="">
+        <form id="topGameFilter" class="centered" action="gameSalesAPI.java" method="POST" >
+            <input type="hidden" name="formName" value="topGameFilter" />
             <label>Metric:</label>
             <select id="topMetric" name="topMetric">
                 <option selected value="critic">Top Critic Review Scores</option>
@@ -58,20 +60,30 @@
                 <th>Age Rating</th>
             </tr>
         </table>
+        <h3 style="display: none;" id="topGameError" class="error centered">An error occurred.</h3>
     </div>
     <div id="EditGames" class="tabContent">
         <h1 class="pageHeaders">Edit a Game</h1>
-        <form  id="editGameSearch" class="centered" action="" method="">
+        <form id="editGameSearch" class="centered" action="gameSalesAPI.java" method="POST" >
+            <input type="hidden" name="formName" value="editGameSearch" />
             <label>Name of Game:</label>
             <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Name of Developer:</label>
+            <input type="text" id="devNameRating" name="devName" placeholder="Bethesda Game Studios"></input>
+            <br>
+            <label>Year:</label>
+            <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
             <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
             <br>
-            <button type="submit">Edit</button>
+            <button type="submit" >Find Game to Edit</button>
         </form>
-        <h3 style="display: none;" class="error centered">Game not found!</h3>
-        <form style="display: none;" id="editGame" class="centered" action="" method="">
+        <h3 style="display: none;" id="editGameSearchError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="editGameSearchEmpty" class="error centered">Game not found!</h3>
+        <form style="display: none;" id="editGame" name="editGame" class="centered" action="gameSalesAPI.java" method="POST">
+            <input type="hidden" name="formName" value="editGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
             <br>
@@ -95,10 +107,13 @@
             <br>
             <button type="submit">Edit</button>
         </form>
+        <h3 style="display: none;" id="editGameError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="editGameEmpty" class="centered">Game successfully edited!</h3>
     </div>
     <div id="Review" class="tabContent">
         <h1 class="pageHeaders">Add a Game Review</h1>
-        <form id="reviewGame" class="centered" action="" method="">
+        <form id="reviewGame" name="reviewGame" class="centered" action="gameSalesAPI.java" method="POST">
+            <input type="hidden" name="formName" value="reviewGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
             <br>
@@ -111,23 +126,32 @@
             <label>Platform:</label>
             <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
             <br>
-            <label>Type of Rating:</label>
-            <select id="ratingType" name="ratingType">
+            <label>Type of Review:</label>
+            <select id="ratingType" name="ratingType" onchange="changeReviewType()">
                 <option selected value="critic">Critic</option>
                 <option value="user">User</option>
             </select>
             <br>
-            <label>Score (1-100):</label>
+            <label id = "scoreLabel" >Score (1-100):</label>
             <input type="text" id="score" name="score" placeholder="85"></input>
             <br>
             <button type="submit">Rate</button>
         </form>
+        <h3 style="display: none;" id="reviewGameError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="reviewGameEmpty" class="centered">Review successfully added!</h3>
     </div>
-    <div id="SearchGames" class="tabContent" onclick="changeImage()">
+    <div id="SearchGames" class="tabContent" >
         <h1 class="pageHeaders">Search For a Game</h1>
-        <form id="searchGame" class="centered" action="" method="">
+        <form id="searchGame" class="centered" action="gameSalesAPI.java" method="POST" >
+            <input type="hidden" name="formName" value="searchGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
+            <br>
+            <label>Name of Developer:</label>
+            <input type="text" id="devNameRating" name="devName" placeholder="Bethesda Game Studios"></input>
+            <br>
+            <label>Year:</label>
+            <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
             <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
@@ -147,6 +171,8 @@
                 <th>Age Rating</th>
             </tr>
         </table>
+        <h3 style="display: none;" id="searchGameError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="searchGameEmpty" class="error centered">Game not found!</h3>
     </div>
     <div id="Credits" class="tabContent" style="text-align:center;">
         <h1 class="pageHeaders">Created by:</h1>
