@@ -65,6 +65,12 @@ public class gameSalesAPI {
 
         gameSalesAPI demoObj = new gameSalesAPI();
         demoObj.Connection();
+        try {
+            connection.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         //String sqlQuery = "";
         //demoObj.simpleQuery(sqlQuery);
     }
