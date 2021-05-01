@@ -18,13 +18,16 @@ document.addEventListener("submit", (e) => {
 		if (!res.ok) {
 			throw new Error('Response was not ok.');
 		}
-		const apiResponse = JSON.parse(res);
+		const apiResponse = res;
+		console.log(res);
 		if (apiResponse.length > 0) {
 			performExpectedAction(form.id, apiResponse);
 		}else{
+			console.error("empty");
 			performErrorAction(form.id, "Empty");
 		}
 	  }).catch(error => {
+		console.error(error);
 		performErrorAction(form.id, "Error");
 	  });
   
