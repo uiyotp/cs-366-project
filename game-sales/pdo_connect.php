@@ -1,8 +1,8 @@
 <?php
 
-$user = 'paprockisj04';
-$pass = 'sp3619'; 
-$db_info='mysql:host=jdbc:mariadb://washington.uww.edu/cs366-2211_paprockisj04;dbname=cs366-2211_paprockisj04';
+$user = 'root';
+$pass = ''; 
+$db_info='mysql:host=localhost;dbname=gamesales';
 try {
     $db = new PDO($db_info, $user, $pass);
 

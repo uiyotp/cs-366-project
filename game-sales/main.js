@@ -10,7 +10,6 @@ function openPage(pageName) {
 //event listener to handle all the form submissions
 document.addEventListener("submit", (e) => {
 	const form = e.target;
-	console.log(form);
   
 	fetch(form.action, {
 	  method: form.method,
@@ -37,7 +36,7 @@ document.addEventListener("submit", (e) => {
 
 //gets the list of all genres for the top games tab
 function getGenre() {
-	getData(`gameSalesAPI.java?type=genre`).then(response => {
+	getData(`gameSalesAPI.php`).then(response => {
 		const apiResponse = JSON.parse(response)
 		if (apiResponse.length > 0) {
 			performExpectedAction("topGenre", apiResponse);
@@ -137,11 +136,10 @@ function performExpectedAction(id, list) {
 			break;
 		case "topGenre":
 			//will populate the dropdown
-			let selected = "selected";
+			output += `<option selected value="none">None</option>`;
 			for(let i in list ) {
 				const game = list[i];
-				output += `<option ${selected} value="${i}">${game.genre}</option>`;
-				selected = '';
+				output += `<option value="${game.genre}">${game.genre}</option>`;
 			}
 			document.getElementById('topGenre').innerHTML = output;
 			break;
