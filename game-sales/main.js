@@ -10,6 +10,7 @@ function openPage(pageName) {
 //event listener to handle all the form submissions
 document.addEventListener("submit", (e) => {
 	const form = e.target;
+	console.log(form);
   
 	fetch(form.action, {
 	  method: form.method,
@@ -18,12 +19,12 @@ document.addEventListener("submit", (e) => {
 		if (!res.ok) {
 			throw new Error('Response was not ok.');
 		}
+		//const apiResponse = JSON.parse(res);
 		const apiResponse = res;
-		console.log(res);
+		console.log(apiResponse);
 		if (apiResponse.length > 0) {
 			performExpectedAction(form.id, apiResponse);
 		}else{
-			console.error("empty");
 			performErrorAction(form.id, "Empty");
 		}
 	  }).catch(error => {
