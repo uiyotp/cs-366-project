@@ -17,7 +17,7 @@ document.addEventListener("submit", (e) => {
 	}).then((res) => {
 		if (!res.ok) {
 			throw new Error('Response was not ok.');
-		  }
+		}
 		const apiResponse = JSON.parse(res);
 		if (apiResponse.length > 0) {
 			performExpectedAction(form.id, apiResponse);

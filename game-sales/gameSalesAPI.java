@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.sql.*;
 import javax.servlet.*;
@@ -38,45 +37,46 @@ public class gameSalesAPI extends HttpServlet
         //Open the connection
 		gameSalesAPI gameObj=new gameSalesAPI();
 		gameObj.Connection();
+		String queryResult = "";
 
         //For the topGameFilter form post
 		if (request.getParameter("formName") == "topGameFilter"){
             String filter = request.getParameter("topMetric");
             String sql = "";			
 			if (filter == "critic") {
-				sql = 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g
-                INNER JOIN publisher AS p
-                ON g.pub_ID = p.pub_ID
-                INNER JOIN developer AS d
-                ON g.dev_ID = d.dev_ID
-                WHERE g.critic_count > 10
-                ORDER BY g.critic_score desc
-                LIMIT 10;';	
+				sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g" +
+                "INNER JOIN publisher AS p" +
+                "ON g.pub_ID = p.pub_ID" +
+                "INNER JOIN developer AS d" +
+                "ON g.dev_ID = d.dev_ID" +
+                "WHERE g.critic_count > 10" +
+                "ORDER BY g.critic_score desc" +
+                "LIMIT 10;";	
 			}
 			if (filter == "user") {
-				sql = 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g
-                INNER JOIN publisher AS p
-                ON g.pub_ID = p.pub_ID
-                INNER JOIN developer AS d
-                ON g.dev_ID = d.dev_ID
-                WHERE g.user_count > 10
-                ORDER BY g.user_score desc
-                LIMIT 10;';
+				sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g" +
+                "INNER JOIN publisher AS p" +
+                "ON g.pub_ID = p.pub_ID" +
+                "INNER JOIN developer AS d" +
+                "ON g.dev_ID = d.dev_ID" +
+                "WHERE g.user_count > 10" +
+                "ORDER BY g.user_score desc" +
+                "LIMIT 10;";
 			}
 			if (filter == "sales") {
-				sql = 'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating
-                FROM game g, publisher p, developer d, sales s,
-                WHERE g.game_ID in(
-                SELECT game_ID
-                FROM game g
-                WHERE game_ID in(
-                SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
-                FROM game g, sales s
-                WHERE s.game_ID=g.game_ID
-                ORDER BY total_sales desc
-                LIMIT 10));';
+				sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating" +
+                "FROM game g, publisher p, developer d, sales s," +
+                "WHERE g.game_ID in(" +
+                "SELECT game_ID" +
+                "FROM game g" +
+                "WHERE game_ID in(" +
+                "SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales" +
+                "FROM game g, sales s" +
+                "WHERE s.game_ID=g.game_ID" +
+                "ORDER BY total_sales desc" +
+                "LIMIT 10));";
 			}
-            gameObj.simpleQuery(sql);
+            queryResult = gameObj.simpleQuery(sql);
         }
 		
         //Close the connection
@@ -86,10 +86,17 @@ public class gameSalesAPI extends HttpServlet
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(queryResult);
+		out.flush();
 		
 	}
 		
 	public String simpleQuery(String sqlQuery) {
+		//Need to convert to JSON in order to output results
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -110,6 +117,7 @@ public class gameSalesAPI extends HttpServlet
                 }
                 System.out.println();
             }
+
         }
         catch (SQLException e) {
             e.printStackTrace();
