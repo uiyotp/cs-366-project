@@ -27,20 +27,20 @@ ORDER BY g.user_score desc
 LIMIT 10;'  
 
 ##### 3. Select the top 10 games based (based on *total sales*, will have to add all four types of sales together for each game)
-SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating
-FROM game g, publisher p, developer d, sales s, 
-WHERE g.game_ID in(
-SELECT game_ID 
-FROM game g 
-WHERE game_ID in(
-SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
-FROM game g, sales s
-WHERE s.game_ID=g.game_ID 
-ORDER BY total_sales desc
-LIMIT 10));
+'SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating  
+FROM game g, publisher p, developer d, sales s,  
+WHERE g.game_ID in(  
+SELECT game_ID  
+FROM game g  
+WHERE game_ID in(  
+SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales  
+FROM game g, sales s  
+WHERE s.game_ID=g.game_ID  
+ORDER BY total_sales desc  
+LIMIT 10));'
 
 ##### 4. Insert a new game
-INSERT INTO game(age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID)  
+INSERT INTO game (age_rating, year, platform, name, genre, pub_ID, critic_score, critic_count, user_score, user_count, dev_ID)  
 VALUES (E10+, 2017, Switch, Breath of the Wild, Adventure, 0014, 97, 109, 8.7, 16687, 0014) ;
 
 ##### 5. Insert a user review (will have to take user_score times user_count, then add new score to that total, then add one to user_count and calculate the new score by dividing the total by the new user_count, then setting the user_score to the total)
