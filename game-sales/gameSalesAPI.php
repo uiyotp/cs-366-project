@@ -29,44 +29,53 @@ try {
                 if($topGenre == "none"){
                     $topGenre = "";
                 } else {
-                    $topGenre = " WHERE g.genre = " . $topGenre;
+                    $topGenre = " AND g.genre = '" . $topGenre . "' ";
                 }
                 if ($topMetric == "critic") {
-                    $sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g
+                    $sql = "SELECT g.name, p.name as publisher, d.name as developer, g.year, g.genre, g.platform, g.critic_score, g.user_score, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
+                    FROM game AS g
                     INNER JOIN publisher AS p
-                    ON g.pub_ID = p.pub_ID
+                    ON g.publisher_ID = p.publisher_ID
                     INNER JOIN developer AS d
-                    ON g.dev_ID = d.dev_ID
+                    ON g.developer_ID = d.developer_ID
+                    INNER JOIN sales AS s
+                    ON g.game_ID = s.game_ID
                     WHERE g.critic_count > 10" . $topGenre . "
                     ORDER BY g.critic_score desc
                     LIMIT 10;";	
                 }
                 if ($topMetric == "user") {
-                    $sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating FROM game AS g
+                    $sql = "SELECT g.name, p.name as publisher, d.name as developer, g.year, g.genre, g.platform, g.critic_score, g.user_score, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
+                    FROM game AS g
                     INNER JOIN publisher AS p
-                    ON g.pub_ID = p.pub_ID
+                    ON g.publisher_ID = p.publisher_ID
                     INNER JOIN developer AS d
-                    ON g.dev_ID = d.dev_ID
+                    ON g.developer_ID = d.developer_ID
+                    INNER JOIN sales AS s
+                    ON g.game_ID = s.game_ID
                     WHERE g.user_count > 10" . $topGenre . "
                     ORDER BY g.user_score desc
                     LIMIT 10;";
                 }
                 if ($topMetric == "sales") {
-                    $sql = "SELECT g.name, p.name, d.name, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating
-                    FROM game g, publisher p, developer d, sales s,
-                    WHERE g.game_ID in(
-                    SELECT game_ID
-                    FROM game g
-                    WHERE game_ID in(
-                    SELECT g.game_ID, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
-                    FROM game g, sales s
-                    WHERE s.game_ID=g.game_ID" . $topGenre . "
+                    $sql = "SELECT g.name, p.name as publisher, d.name as developer, g.year, g.genre, g.platform, g.critic_score, g.user_score, (s.na_sales + s.eu_sales + s.jp_sales + s.other_sales ) AS total_sales
+                    FROM game as g
+                    INNER JOIN publisher AS p
+                    ON g.publisher_ID = p.publisher_ID
+                    INNER JOIN developer AS d
+                    ON g.developer_ID = d.developer_ID
+                    INNER JOIN sales AS s
+                    ON g.game_ID = s.game_ID
+                    WHERE g.user_count > 10" . $topGenre . "
                     ORDER BY total_sales desc
-                    LIMIT 10));";
+                    LIMIT 10;";
                 }
                 $resultSet = simpleQuery($sql, $db);
                 echo json_encode($resultSet);
                 break;
+
+            //Add more cases here for each POST, remember to check and figure out what fields it is expecting you to return in the SELECT queries
+            //Let me know if you have any questions
     
             default:
                 break; 
@@ -74,7 +83,7 @@ try {
                 
     }else if($_SERVER['REQUEST_METHOD'] === 'GET'){
         //The only GET request in our app is to get a list of genres to populate the genre dropdown
-        $sql = "SELECT UNIQUE genre FROM game";
+        $sql = "SELECT DISTINCT genre FROM game;";
         $resultSet = simpleQuery($sql, $db);
         echo json_encode($resultSet);
     } 

@@ -14,15 +14,10 @@ document.addEventListener("submit", (e) => {
 	fetch(form.action, {
 	  method: form.method,
 	  body: new FormData(form),
-	}).then((res) => {
-		if (!res.ok) {
-			throw new Error('Response was not ok.');
-		}
-		//const apiResponse = JSON.parse(res);
-		const apiResponse = res;
-		console.log(apiResponse);
-		if (apiResponse.length > 0) {
-			performExpectedAction(form.id, apiResponse);
+	}).then((res) => res.json()
+	).then(json => {
+		if (json != "[]" && json != undefined) {
+			performExpectedAction(form.id, json);
 		}else{
 			performErrorAction(form.id, "Empty");
 		}
@@ -43,6 +38,7 @@ function getGenre() {
 		}
 	});
 }
+getGenre();
 
 //changes the score field to reflect review type
 function changeReviewType(){
@@ -90,13 +86,14 @@ function performExpectedAction(id, list) {
 			<th>Platform</th>
 			<th>Critic Score</th>
 			<th>User Score</th>
-			<th>Age Rating</th>
+			<th>Sales(Millions)</th>
 			</tr>`;
 			for(let i in list ) {
 				const game = list[i];
+				console.log(game);
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.age_rating}</td></tr>`;
+							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('topGames').innerHTML = output;
 			break;
@@ -124,13 +121,13 @@ function performExpectedAction(id, list) {
 			<th>Platform</th>
 			<th>Critic Score</th>
 			<th>User Score</th>
-			<th>Age Rating</th>
+			<th>Sales(Millions)</th>
 			</tr>`;
 			for(let i in list ) {
 				const game = list[i];
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.age_rating}</td></tr>`;
+							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('searchGames').innerHTML = output;
 			break;
