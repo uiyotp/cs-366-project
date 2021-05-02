@@ -14,17 +14,15 @@ document.addEventListener("submit", (e) => {
 	fetch(form.action, {
 	  method: form.method,
 	  body: new FormData(form),
-	}).then((res) => {
-		if (!res.ok) {
-			throw new Error('Response was not ok.');
-		  }
-		const apiResponse = JSON.parse(res);
-		if (apiResponse.length > 0) {
-			performExpectedAction(form.id, apiResponse);
+	}).then((res) => res.json()
+	).then(json => {
+		if (json != "[]" && json != undefined) {
+			performExpectedAction(form.id, json);
 		}else{
 			performErrorAction(form.id, "Empty");
 		}
 	  }).catch(error => {
+		console.error(error);
 		performErrorAction(form.id, "Error");
 	  });
   
@@ -33,13 +31,14 @@ document.addEventListener("submit", (e) => {
 
 //gets the list of all genres for the top games tab
 function getGenre() {
-	getData(`gameSalesAPI.java?type=genre`).then(response => {
+	getData(`gameSalesAPI.php`).then(response => {
 		const apiResponse = JSON.parse(response)
 		if (apiResponse.length > 0) {
 			performExpectedAction("topGenre", apiResponse);
 		}
 	});
 }
+getGenre();
 
 //changes the score field to reflect review type
 function changeReviewType(){
@@ -87,13 +86,14 @@ function performExpectedAction(id, list) {
 			<th>Platform</th>
 			<th>Critic Score</th>
 			<th>User Score</th>
-			<th>Age Rating</th>
+			<th>Sales(Millions)</th>
 			</tr>`;
 			for(let i in list ) {
 				const game = list[i];
+				console.log(game);
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.age_rating}</td></tr>`;
+							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('topGames').innerHTML = output;
 			break;
@@ -121,23 +121,22 @@ function performExpectedAction(id, list) {
 			<th>Platform</th>
 			<th>Critic Score</th>
 			<th>User Score</th>
-			<th>Age Rating</th>
+			<th>Sales(Millions)</th>
 			</tr>`;
 			for(let i in list ) {
 				const game = list[i];
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.age_rating}</td></tr>`;
+							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('searchGames').innerHTML = output;
 			break;
 		case "topGenre":
 			//will populate the dropdown
-			let selected = "selected";
+			output += `<option selected value="none">None</option>`;
 			for(let i in list ) {
 				const game = list[i];
-				output += `<option ${selected} value="${i}">${game.genre}</option>`;
-				selected = '';
+				output += `<option value="${game.genre}">${game.genre}</option>`;
 			}
 			document.getElementById('topGenre').innerHTML = output;
 			break;

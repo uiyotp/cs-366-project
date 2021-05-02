@@ -12,7 +12,7 @@
 <body>
     <h1 class="title">Game Sales Database</h1>
     <div class="tabSection">
-        <a id="TopGamesTab" class="tab noHighlight current" onclick="openPage('TopGames'); getGenre();">
+        <a id="TopGamesTab" class="tab noHighlight current" onclick="openPage('TopGames');">
             <h1 class="tabText">Top Games</h1>
         </a>
         <a id="EditGamesTab" class="tab noHighlight" onclick="openPage('EditGames')">
@@ -30,7 +30,7 @@
     </div>
     <div id="TopGames" class="tabContent">
         <h1 class="pageHeaders">List of Top Games</h1>
-        <form id="topGameFilter" class="centered" action="gameSalesAPI.java" method="POST" >
+        <form id="topGameFilter" class="centered" action="gameSalesAPI.php" method="POST" >
             <input type="hidden" name="formName" value="topGameFilter" />
             <label>Metric:</label>
             <select id="topMetric" name="topMetric">
@@ -42,7 +42,7 @@
             <!-- Will dynamically fill -->
             <label>Genre:</label>
             <select id="topGenre" name="topGenre">
-                <option selected value="1">Action RPG</option>
+                <option selected value="none">None</option>
             </select>
             <br>
             <button type="submit" >Search</button>
@@ -57,14 +57,14 @@
                 <th>Platform</th>
                 <th>Critic Score</th>
                 <th>User Score</th>
-                <th>Age Rating</th>
+                <th>Sales(Millions)</th>
             </tr>
         </table>
         <h3 style="display: none;" id="topGameError" class="error centered">An error occurred.</h3>
     </div>
     <div id="EditGames" class="tabContent">
         <h1 class="pageHeaders">Edit a Game</h1>
-        <form id="editGameSearch" class="centered" action="gameSalesAPI.java" method="POST" >
+        <form id="editGameSearch" class="centered" action="gameSalesAPI.php" method="POST" >
             <input type="hidden" name="formName" value="editGameSearch" />
             <label>Name of Game:</label>
             <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
@@ -82,7 +82,7 @@
         </form>
         <h3 style="display: none;" id="editGameSearchError" class="error centered">An error occurred.</h3>
         <h3 style="display: none;" id="editGameSearchEmpty" class="error centered">Game not found!</h3>
-        <form style="display: none;" id="editGame" name="editGame" class="centered" action="gameSalesAPI.java" method="POST">
+        <form style="display: none;" id="editGame" name="editGame" class="centered" action="gameSalesAPI.php" method="POST">
             <input type="hidden" name="formName" value="editGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
@@ -112,7 +112,7 @@
     </div>
     <div id="Review" class="tabContent">
         <h1 class="pageHeaders">Add a Game Review</h1>
-        <form id="reviewGame" name="reviewGame" class="centered" action="gameSalesAPI.java" method="POST">
+        <form id="reviewGame" name="reviewGame" class="centered" action="gameSalesAPI.php" method="POST">
             <input type="hidden" name="formName" value="reviewGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
@@ -142,7 +142,7 @@
     </div>
     <div id="SearchGames" class="tabContent" >
         <h1 class="pageHeaders">Search For a Game</h1>
-        <form id="searchGame" class="centered" action="gameSalesAPI.java" method="POST" >
+        <form id="searchGame" class="centered" action="gameSalesAPI.php" method="POST" >
             <input type="hidden" name="formName" value="searchGame" />
             <label>Name of Game:</label>
             <input type="text" id="gameNameRating" name="gameName" placeholder="Fallout 4"></input>
@@ -168,7 +168,7 @@
                 <th>Platform</th>
                 <th>Critic Score</th>
                 <th>User Score</th>
-                <th>Age Rating</th>
+                <th>Sales(Millions)</th>
             </tr>
         </table>
         <h3 style="display: none;" id="searchGameError" class="error centered">An error occurred.</h3>
