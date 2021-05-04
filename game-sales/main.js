@@ -4,7 +4,17 @@ function openPage(pageName) {
     for (var i = 0; i < tabContent.length; i++) {
         tabContent[i].style.display = "none";
     }
+	if(pageName == 'EditGames'){
+		document.getElementById('editGame').style = 'display: none;';
+		document.getElementById('editGameSearch').style = '';
+		document.getElementById('editGameSearchError').style = 'display: none;';
+		document.getElementById('editGameSearchEmpty').style = 'display: none;';
+	}
     document.getElementById(pageName).style.display = "block";
+	if(pageName != 'Credits'){
+		document.getElementById(pageName + 'Error').style = 'display: none;';
+		document.getElementById(pageName + 'Empty').style = 'display: none;';
+	}
 }
 
 openPage('TopGames');
@@ -115,7 +125,6 @@ function performExpectedAction(id, list) {
 			document.getElementById('year').value = list[0].year;
 			document.getElementById('genre').value = list[0].genre;
 			document.getElementById('platform').value = list[0].platform;
-			document.getElementById('ageRating').value = list[0].age_rating;
 			document.getElementById('game_ID').value = list[0].game_ID;
 			break;
 		case "searchGame":
@@ -158,22 +167,22 @@ function performErrorAction(id, type) {
 	if(type == "Error"){
 		switch(id){
 			case "topGameFilter":
-				document.getElementById('topGameError').style = '';
+				document.getElementById('TopGamesError').style = '';
 				break;
 			case "editGameSearch":
 				document.getElementById('editGameSearchError').style = '';
 				break;
 			case "editGame":
-				document.getElementById('editGameError').style = '';
+				document.getElementById('EditGamesError').style = '';
 				break;
 			case "reviewGame":
-				document.getElementById('reviewGameError').style = '';
+				document.getElementById('ReviewError').style = '';
 				break;
 			case "searchGame":
-				document.getElementById('searchGameError').style = '';
+				document.getElementById('SearchGamesError').style = '';
 				break;
 			case "topGenre":
-				document.getElementById('topGameError').style = '';
+				document.getElementById('TopGamesError').style = '';
 				break;
 			default:
 				console.log("Unexpected form submitted.");
@@ -181,22 +190,22 @@ function performErrorAction(id, type) {
 	}else if(type == "Empty"){
 		switch(id){
 			case "topGameFilter":
-				document.getElementById('topGameError').style = '';
+				document.getElementById('TopGamesError').style = '';
 				break;
 			case "editGameSearch":
 				document.getElementById('editGameSearchEmpty').style = '';
 				break;
 			case "editGame":
-				document.getElementById('editGameEmpty').style = '';
+				document.getElementById('EditGamesEmpty').style = '';
 				break;
 			case "reviewGame":
-				document.getElementById('reviewGameEmpty').style = '';
+				document.getElementById('ReviewEmpty').style = '';
 				break;
 			case "searchGame":
-				document.getElementById('searchGameEmpty').style = '';
+				document.getElementById('SearchGamesEmpty').style = '';
 				break;
 			case "topGenre":
-				document.getElementById('topGameError').style = '';
+				document.getElementById('TopGamesError').style = '';
 				break;
 			default:
 				console.log("Unexpected form submitted.");

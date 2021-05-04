@@ -80,17 +80,16 @@ try {
             case "editGameSearch":
                 $gameName = $_POST['gameName'];
                 $devName = $_POST['devName'];
-                $year = $_POST['year'];
                 $platform = $_POST['platform'];
                 //if fields are not empty, execute sql
-                if ($gameName!="" && $devName!="" && $year!="" && $platform!=""){
-                     $sql="SELECT g.game_ID, g.name, p.name as publisher, d.name as developer, g.year, g.genre, g.platform, g.critic_score, g.user_score, g.age_rating
+                if ($gameName!="" && $devName!="" && $platform!=""){
+                     $sql="SELECT g.game_ID, g.name, p.name as publisher, d.name as developer, g.year, g.genre, g.platform, g.critic_score, g.user_score
                             FROM game AS g
                             INNER JOIN publisher AS p
                             ON g.publisher_ID = p.publisher_ID
                             INNER JOIN developer AS d
                             ON g.developer_ID = d.developer_ID
-                            WHERE g.name = '". $gameName ."' and year = " . $year ." and g.platform = '". $platform ."' and d.name = '". $devName ."';"; 
+                            WHERE g.name = '". $gameName ."' and g.platform = '". $platform ."' and d.name = '". $devName ."';"; 
                 }
                 $resultSet = simpleQuery($sql, $db);
                 echo json_encode($resultSet);
@@ -104,19 +103,40 @@ try {
                 $year = $_POST['year'];
                 $genre = $_POST['genre'];
                 $platform = $_POST['platform'];
-                $ageRating = $_POST['ageRating'];
                 $game_ID = $_POST['game_ID'];
+
+                //Check if developer exists, otherwise insert a new developer
+                if($devName != ""){
+                    $checkDev = "SELECT developer_ID FROM developer WHERE name = '" . $devName . "';";
+                    if(simpleQuery($checkDev,$db) == "[]"){
+                        $insertDev = "INSERT INTO developer(name)
+                        VALUES ('".$devName ."');";
+                        simpleQuery($insertDev, $db);
+                    }
+                }
+
+                //Check if publisher exists, otherwise insert a new publisher
+                $checkPub = "SELECT publisher_ID FROM publisher WHERE name = '" . $pubName . "';";
+                if(simpleQuery($checkPub,$db) == "[]"){
+                    $insertPub = "INSERT INTO publisher(name)
+                    VALUES ('".$pubName ."');";
+                    simpleQuery($insertPub, $db);
+                }
+
+                //Edit the game
                 //if fields are not empty, execute sql
-                if ($gameName!="" && $devName!="" && $year!="" && $platform!=""){
-                   $sql= "IF( !EXISTS (SELECT developer_ID FROM developer WHERE name=".$devName ."),
-                   INSERT INTO developer(name)
-                   VALUES ('".$devName ."'));
-                   IF !EXISTS (SELECT publisher_ID FROM publisher WHERE name=".$pubName .")
-                   INSERT INTO publisher(name)
-                   VALUES ('".$pubName ."');
-                   UPDATE game
-                   SET platform = '". $platform ."', name = '". $gameName ."', developer_ID = (SELECT developer_ID FROM developer WHERE name='".$devName ."'), publisher_ID = (SELECT publisher_ID FROM publisher WHERE name='".$pubName ."'), year = ". $year .", genre = '" . $genre . "', age_rating = '" . $ageRating . "'
-                   WHERE game_ID = ". $game_ID .";";
+                if($devName != ""){
+                    if ($gameName!="" && $pubName!="" && $year!="" && $platform!=""){
+                        $sql= "UPDATE game
+                        SET platform = '". $platform ."', name = '". $gameName ."', developer_ID = (SELECT developer_ID FROM developer WHERE name='".$devName ."'), publisher_ID = (SELECT publisher_ID FROM publisher WHERE name='".$pubName ."'), year = ". $year .", genre = '" . $genre . "'
+                        WHERE game_ID = ". $game_ID .";";
+                     }
+                }else{
+                    if ($gameName!="" && $pubName!="" && $year!="" && $platform!=""){
+                        $sql= "UPDATE game
+                        SET platform = '". $platform ."', name = '". $gameName ."', developer_ID = -1, publisher_ID = (SELECT publisher_ID FROM publisher WHERE name='".$pubName ."'), year = ". $year .", genre = '" . $genre . "'
+                        WHERE game_ID = ". $game_ID .";";
+                     }
                 }
                 
                 $resultSet = simpleQuery($sql, $db);

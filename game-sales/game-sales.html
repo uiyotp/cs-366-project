@@ -60,7 +60,8 @@
                 <th>Sales(Millions)</th>
             </tr>
         </table>
-        <h3 style="display: none;" id="topGameError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="TopGamesError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="TopGamesEmpty" class="error centered">An error occurred.</h3>
     </div>
     <div id="EditGames" class="tabContent">
         <h1 class="pageHeaders">Edit a Game</h1>
@@ -71,9 +72,6 @@
             <br>
             <label>Name of Developer:</label>
             <input type="text" id="devNameRating" name="devName" placeholder="Bethesda Game Studios"></input>
-            <br>
-            <label>Year:</label>
-            <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
             <input type="text" id="platformRating" name="platform" placeholder="XOne"></input>
@@ -103,13 +101,10 @@
             <label>Platform:</label>
             <input type="text" id="platform" name="platform" placeholder="XOne"></input>
             <br>
-            <label>Age Rating:</label>
-            <input type="text" id="ageRating" name="ageRating" placeholder="M"></input>
-            <br>
             <button type="submit">Edit</button>
         </form>
-        <h3 style="display: none;" id="editGameError" class="error centered">An error occurred.</h3>
-        <h3 style="display: none;" id="editGameEmpty" class="centered">Game successfully edited!</h3>
+        <h3 style="display: none;" id="EditGamesError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="EditGamesEmpty" class="centered">Game successfully edited!</h3>
     </div>
     <div id="Review" class="tabContent">
         <h1 class="pageHeaders">Add a Game Review</h1>
@@ -138,8 +133,8 @@
             <br>
             <button type="submit">Rate</button>
         </form>
-        <h3 style="display: none;" id="reviewGameError" class="error centered">An error occurred.</h3>
-        <h3 style="display: none;" id="reviewGameEmpty" class="centered">Review successfully added!</h3>
+        <h3 style="display: none;" id="ReviewError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="ReviewEmpty" class="centered">Review successfully added!</h3>
     </div>
     <div id="SearchGames" class="tabContent" >
         <h1 class="pageHeaders">Search For a Game</h1>
@@ -172,8 +167,8 @@
                 <th>Sales(Millions)</th>
             </tr>
         </table>
-        <h3 style="display: none;" id="searchGameError" class="error centered">An error occurred.</h3>
-        <h3 style="display: none;" id="searchGameEmpty" class="error centered">Game not found!</h3>
+        <h3 style="display: none;" id="SearchGamesError" class="error centered">An error occurred.</h3>
+        <h3 style="display: none;" id="SearchGamesEmpty" class="error centered">Game not found!</h3>
     </div>
     <div id="Credits" class="tabContent" style="text-align:center;">
         <h1 class="pageHeaders">Created by:</h1>
