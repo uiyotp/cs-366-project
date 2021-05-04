@@ -7,6 +7,8 @@ function openPage(pageName) {
     document.getElementById(pageName).style.display = "block";
 }
 
+openPage('TopGames');
+
 //event listener to handle all the form submissions
 document.addEventListener("submit", (e) => {
 	const form = e.target;
@@ -16,10 +18,15 @@ document.addEventListener("submit", (e) => {
 	  body: new FormData(form),
 	}).then((res) => res.json()
 	).then(json => {
-		if (json != "[]" && json != undefined) {
+		if (json != "[]" && json != "" && json != undefined && json != "score invalid") {
 			performExpectedAction(form.id, json);
 		}else{
-			performErrorAction(form.id, "Empty");
+			if(json != "score invalid"){
+				performErrorAction(form.id, "Empty");
+			}else{
+				console.error(error);
+				performErrorAction(form.id, "Error");
+			}
 		}
 	  }).catch(error => {
 		console.error(error);
@@ -93,7 +100,7 @@ function performExpectedAction(id, list) {
 				console.log(game);
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
+							<td>${Number.parseFloat(game.critic_score).toFixed(0)}</td><td>${Number.parseFloat(game.user_score).toFixed(1)}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('topGames').innerHTML = output;
 			break;
@@ -102,13 +109,14 @@ function performExpectedAction(id, list) {
 			document.getElementById('editGame').style = '';
 			document.getElementById('editGameSearch').style = 'display: none;';
 
-			document.getElementById('gameName').value = list[i].name;
-			document.getElementById('pubName').value = list[i].publisher;
-			document.getElementById('devName').value = list[i].developer;
-			document.getElementById('year').value = list[i].year;
-			document.getElementById('genre').value = list[i].genre;
-			document.getElementById('platform').value = list[i].platform;
-			document.getElementById('ageRating').value = list[i].age_rating;
+			document.getElementById('gameNameField').value = list[0].name;
+			document.getElementById('pubName').value = list[0].publisher;
+			document.getElementById('devName').value = list[0].developer;
+			document.getElementById('year').value = list[0].year;
+			document.getElementById('genre').value = list[0].genre;
+			document.getElementById('platform').value = list[0].platform;
+			document.getElementById('ageRating').value = list[0].age_rating;
+			document.getElementById('game_ID').value = list[0].game_ID;
 			break;
 		case "searchGame":
 			//will populate the table
@@ -127,7 +135,7 @@ function performExpectedAction(id, list) {
 				const game = list[i];
 				output += `<tr><td>${game.name}</td><td>${game.publisher}</td><td>${game.developer}</td>
 							<td>${game.year}</td><td>${game.genre}</td><td>${game.platform}</td>
-							<td>${game.critic_score}</td><td>${game.user_score}</td><td>${game.total_sales}</td></tr>`;
+							<td>${Number.parseFloat(game.critic_score).toFixed(0)}</td><td>${Number.parseFloat(game.user_score).toFixed(1)}</td><td>${game.total_sales}</td></tr>`;
 			}
 			document.getElementById('searchGames').innerHTML = output;
 			break;

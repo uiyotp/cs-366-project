@@ -76,7 +76,7 @@
             <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
-            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <input type="text" id="platformRating" name="platform" placeholder="XOne"></input>
             <br>
             <button type="submit" >Find Game to Edit</button>
         </form>
@@ -84,8 +84,9 @@
         <h3 style="display: none;" id="editGameSearchEmpty" class="error centered">Game not found!</h3>
         <form style="display: none;" id="editGame" name="editGame" class="centered" action="gameSalesAPI.php" method="POST">
             <input type="hidden" name="formName" value="editGame" />
+            <input type="hidden" name="game_ID" id="game_ID" value="" />
             <label>Name of Game:</label>
-            <input type="text" id="gameName" name="gameName" placeholder="Fallout 4"></input>
+            <input type="text" id="gameNameField" name="gameName" placeholder="Fallout 4"></input>
             <br>
             <label>Name of Publisher:</label>
             <input type="text" id="pubName" name="pubName" placeholder="Bethesda Softworks"></input>
@@ -100,7 +101,7 @@
             <input type="text" id="genre" name="genre" placeholder="Action RPG"></input>
             <br>
             <label>Platform:</label>
-            <input type="text" id="platform" name="platform" placeholder="Xbox"></input>
+            <input type="text" id="platform" name="platform" placeholder="XOne"></input>
             <br>
             <label>Age Rating:</label>
             <input type="text" id="ageRating" name="ageRating" placeholder="M"></input>
@@ -124,7 +125,7 @@
             <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
-            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <input type="text" id="platformRating" name="platform" placeholder="XOne"></input>
             <br>
             <label>Type of Review:</label>
             <select id="ratingType" name="ratingType" onchange="changeReviewType()">
@@ -154,7 +155,7 @@
             <input type="text" id="yearRating" name="year" placeholder="2015"></input>
             <br>
             <label>Platform:</label>
-            <input type="text" id="platformRating" name="platform" placeholder="Xbox"></input>
+            <input type="text" id="platformRating" name="platform" placeholder="XOne"></input>
             <br>
             <button type="submit">Search</button>
         </form>

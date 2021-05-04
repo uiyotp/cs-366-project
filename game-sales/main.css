@@ -43,7 +43,7 @@ body {
     font-family:'Courier New', Courier, monospace;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
     margin: 0;
     padding: 0;
 }
@@ -55,7 +55,7 @@ body {
 
 .tabContent {
     color: white;
-    height: 100%;
+    height: fit-content;
 }
 
 .tab:hover {
